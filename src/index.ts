@@ -1,10 +1,15 @@
 import dotenv from "dotenv";
-import express from 'express';
+import { Logger } from "./config/Logger";
+import { App } from "./Providers/App";
+import { Express } from "./Providers/Express";
 
 dotenv.config();
 
 
+const express = new Express();
+const app = new App(express.app);
 
 
-console.log("port",process.env)
+app.initServer()
+
 
