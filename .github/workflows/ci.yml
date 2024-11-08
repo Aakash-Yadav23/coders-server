@@ -1,0 +1,44 @@
+name: ci
+
+on:
+    pull_request:
+        branches: ["*"]
+
+        
+permissions:
+    pull-requests: write
+    contents: read
+
+    
+
+jobs:
+    build-and-test:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node-version: [21.X]
+        
+         
+        steps:
+        
+        - name: Copy repository
+          uses:  actions/checkout@V3
+         
+        - name: Use Node.js ${{matrix.node-version}}  
+          uses: actions/setup-node@V3
+          with:
+            node-verion: ${{matrix.node-version}}
+
+        - name: Install dependencies
+          run:  npm i --force
+
+        - name: build
+          run: npm run build
+    
+
+        # - name: test
+        #   run: npm run test
+
+    
+    
+    

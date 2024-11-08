@@ -1,0 +1,15 @@
+version: '1.0'
+
+services:
+  redis:
+    image: redis
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-v:/app:v/redis
+
+
+
+volumes:
+     redis-v

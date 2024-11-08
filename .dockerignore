@@ -1,0 +1,11 @@
+node_modules
+node_modules/*
+.vs_code
+dist
+dist/*
+.env
+logs/*
+logs
+
+certificates
+certificates/*
