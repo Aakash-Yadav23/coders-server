@@ -18,6 +18,7 @@ const pool = new Pool({
     max: 20,
     ssl: env.NODE_ENV === "dev" ? {
         rejectUnauthorized: false,
+        
 
     } : {
         ca: fs.readFileSync(path.join(__dirname, "../../certificates/pg.crt")).toString(),
