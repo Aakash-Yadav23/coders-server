@@ -1,0 +1,11 @@
+{
+    "dev": {
+      "driver": "pg",
+      "host": "localhost",
+      "database": "discord",
+      "user": "admin",
+      "password": "admin",
+      "port": 5432
+    }
+  }
+  

@@ -4,7 +4,7 @@ import { App } from './Providers/App';
 import { Express } from './Providers/Express';
 import { Logger } from './config/Logger';
 import { EnvConfig } from './config/EnvConfig';
-import { connectMongodb } from './config/Db';
+import { connectMongodb, pool } from './config/Db';
 import stoppable, { WithStop } from 'stoppable';
 
 export class Server {
@@ -93,8 +93,10 @@ export class Server {
         try {
 
             if (this.stoppableServer) {
+                await pool.end();
                 this.stoppableServer.stop(() => {
                     this.logger.info('👋 Gracefully shut down the server');
+
                     process.exit(0); // Exit after server stops
                 });
             }

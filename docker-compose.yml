@@ -1,4 +1,4 @@
-version: '1.0'
+version: '3.8'
 
 services:
   redis:
@@ -7,9 +7,20 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis-v:/app:v/redis
+      - redis-v:/data 
 
-
+  discord-db:
+    image: postgres
+    container_name: discord-db
+    ports:
+      - "5479:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=discord
 
 volumes:
-     redis-v
+  redis-v:
+  pg-data:
