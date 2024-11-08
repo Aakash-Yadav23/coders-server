@@ -1,15 +1,11 @@
-import dotenv from "dotenv";
-import { Logger } from "./config/Logger";
-import { App } from "./Providers/App";
-import { Express } from "./Providers/Express";
-
-dotenv.config();
+import { Server } from './Server';
 
 
-const express = new Express();
-const app = new App(express.app);
-
-
-app.initServer()
+Server.getInstance()
+    .startServer()
+    .catch((error) => {
+        console.error('Failed to start server:', error);
+        process.exit(1);
+    });
 
 

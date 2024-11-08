@@ -6,3 +6,6 @@ dist/*
 .env
 logs/*
 logs
+
+certificates
+certificates/*
