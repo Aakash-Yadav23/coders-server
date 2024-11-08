@@ -16,10 +16,14 @@ const pool = new Pool({
     port: env.PG_PORT,
     idleTimeoutMillis: env.PG_TIMEOUT || 30000,
     max: 20,
-    ssl: {
-        ca: fs.readFileSync(path.join(__dirname,"../../certificates/pg.crt")).toString(),
-        rejectUnauthorized: true, 
-    },});
+    ssl: env.NODE_ENV === "dev" ? {
+        rejectUnauthorized: false,
+
+    } : {
+        ca: fs.readFileSync(path.join(__dirname, "../../certificates/pg.crt")).toString(),
+        rejectUnauthorized: true,
+    },
+});
 
 const connectMongodb = async () => {
     try {
@@ -36,7 +40,7 @@ const connectMongodb = async () => {
         console.error("MongoDB connection error:", error);
         new Logger().error(`Mongodb connection Error- ${error}`)
 
-        process.exit(1); 
+        process.exit(1);
     }
 };
 

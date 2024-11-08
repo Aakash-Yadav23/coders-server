@@ -12,6 +12,21 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+      PORT: 3000
+      DEFAULT_PATH: /v1
+      CORS_SITES: http://localhost:3000
+      PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+      PG_USER: ${{ secrets.PG_USER }}
+      PG_PORT: 25406
+      PG_HOST: discord-aakashdev24-ae01.j.aivencloud.com
+      PG_DB: defaultdb
+      PG_SERVICE_URI: ${{ secrets.PG_SERVICE_URI }}
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+      ENABLE_CLUSTERING: true
+      NODE_ENV: dev
+
     steps:
       # Checkout code
       - name: Checkout code
