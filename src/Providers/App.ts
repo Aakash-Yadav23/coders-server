@@ -66,4 +66,6 @@ export class App {
             });
         });
     }
+
+    public getApp = () => this.app;  
 }

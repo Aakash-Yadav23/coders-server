@@ -37,7 +37,7 @@ export class Express {
     }
 
     private applyPreRoutesMiddleware(): void {
-        
+
         this.app.use(helmet({
             contentSecurityPolicy: this.env.envInit().NODE_ENV === 'production',
         }));
@@ -67,6 +67,7 @@ export class Express {
             this.app.use(morgan('combined', { stream: this.logger.getMorganStream() }));
         }
 
+
         // Trust proxy
         this.app.set('trust proxy', 1);
     }
@@ -84,7 +85,8 @@ export class Express {
     }
 
     private initializeRoutes(): void {
-        // Health check route
+
+        
         this.app.get('/health', (req: IRequest, res: IResponse) => {
             res.status(200).json({
                 status: 'success',
@@ -95,12 +97,21 @@ export class Express {
             });
         });
 
-        // Add your routes here
-        // this.app.use('/api/v1/users', userRoutes);
+
+        this.app.get('/', (req: IRequest, res: IResponse) => {
+            res.send({
+                status: "success",
+                message: "ok"
+            })
+            return
+        })
+
+
+
+
     }
 
     private applyPostRoutesMiddleware(): void {
-        // 404 handler
         this.app.use((req: IRequest, res: IResponse) => {
             res.status(404).json({
                 status: 'error',
@@ -113,5 +124,5 @@ export class Express {
     }
 
 
-    
+
 }
