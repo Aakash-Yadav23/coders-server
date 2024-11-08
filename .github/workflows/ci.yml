@@ -1,45 +1,40 @@
-name: ci
+name: Build and Test
 
 on:
-    pull_request:
-        branches: ["*"]
-
-        
-permissions:
-    pull-requests: write
-    contents: read
-
-    
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
 
 jobs:
-    build-and-test:
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                node-version: [21.X]
-        
-         
-        steps:
-        
-        - name: Copy repository
-          uses:  actions/checkout@V3
-         
-        - name: Use Node.js ${{matrix.node-version}}  
-          uses: actions/setup-node@V3
-          with:
-            node-verion: ${{matrix.node-version}}
+  build-and-test:
+    runs-on: ubuntu-latest
 
-        - name: Install dependencies
-          run:  npm i --force
+    steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name: build
-          run: npm run build
-    
-          
+      # Set up Node.js (adjust version as needed)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-        # - name: test
-        #   run: npm run test
+      # Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-    
-    
-    
+      # Install dependencies with pnpm
+      - name: Install dependencies
+        run: pnpm install
+
+      # Run build
+      - name: Run build
+        run: pnpm run build
+
+      # Run tests
+      - name: Run tests
+        run: pnpm test
